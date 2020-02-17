@@ -222,6 +222,7 @@ const nuguReq = function(httpReq, httpRes, next, users) {
     case "GameStartAction": {
       //랜덤으로 4자리 숫자 생성
       userNumber = parameters.user_number.value;
+      user.userNumber = userNumber;
       winGame = calculateResult.isWin(randomNumber, userNumber, 4);
       numberOfAttempts++;
       let data = callbackResponseBasic(
@@ -286,9 +287,10 @@ const nuguReq = function(httpReq, httpRes, next, users) {
     case "ResultAction2": {
       //사용자가 말한 숫자 확인, 결과 출력, 이겼는지 아닌지 여부는 여기서 결정해서 변수값 바꿔줘야 함!
       numberOfAttempts++;
-      if (userNumber2 == null) {
-        userNumber2 = userNumber;
-      }
+      // if (userNumber2 == null) {
+      //   userNumber2 = userNumber;
+      // }
+      userNumber2 = user.userNumber;
       let data = callbackResponseBasic(
         "result_sentence2",
         calculateResult.compare(randomNumber, userNumber, 4)
@@ -310,9 +312,11 @@ const nuguReq = function(httpReq, httpRes, next, users) {
 
     case "addAction": {
       //사용자가 말한 숫자 확인, 결과 출력, 이겼는지 아닌지 여부는 여기서 결정해서 변수값 바꿔줘야 함!
-      if (userNumber2 == null) {
-        userNumber2 = userNumber;
-      }
+      // if (userNumber2 == null) {
+      //   userNumber2 = userNumber;
+      // }
+      userNumber2 = parameters.user_number2;
+      user.userNumber = userNumber2;
       numberOfAttempts++;
       let data = callbackResponseBasic(
         "result_sentence2",
@@ -335,9 +339,10 @@ const nuguReq = function(httpReq, httpRes, next, users) {
 
     case "CheckAction": {
       //졌으면 가는 브랜치.
-      if (userNumber2 == null) {
-        userNumber2 = userNumber;
-      }
+      // if (userNumber2 == null) {
+      //   userNumber2 = userNumber;
+      // }
+      userNumber2 = user.userNumber;
       let data = callbackResponseBasic(
         "result_sentence2",
         calculateResult.compare(randomNumber, userNumber2, 4)
@@ -359,9 +364,10 @@ const nuguReq = function(httpReq, httpRes, next, users) {
 
     case "WinGameAction2": {
       //이겼으면 가는 브랜치.
-      if (userNumber2 == null) {
-        userNumber2 = userNumber;
-      }
+      // if (userNumber2 == null) {
+      //   userNumber2 = userNumber;
+      // }
+      userNumber2 = user.userNumber;
       let data = callbackResponseBasic(
         "result_sentence2",
         "포 스트라이크에요."
