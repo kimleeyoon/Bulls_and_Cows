@@ -261,7 +261,8 @@ const nuguReq = function(httpReq, httpRes, next, users) {
         data
       );
       data = callbackResponseBasic("user_num", userNumber, data);
-      send(data, callback);
+      // send(data, callback);
+      httpRes.send(data);
 
       break;
     }
@@ -277,7 +278,8 @@ const nuguReq = function(httpReq, httpRes, next, users) {
         data
       );
       data = callbackResponseBasic("user_num", userNumber, data);
-      send(data, callback);
+      // send(data, callback);
+      httpRes.send(data);
       break;
     }
 
@@ -300,7 +302,8 @@ const nuguReq = function(httpReq, httpRes, next, users) {
         data
       );
       data = callbackResponseBasic("user_num2", userNumber2, data);
-      send(data, callback);
+      // send(data, callback);
+      httpRes.send(data);
 
       break;
     }
@@ -324,7 +327,8 @@ const nuguReq = function(httpReq, httpRes, next, users) {
         data
       );
       data = callbackResponseBasic("user_num2", userNumber2, data);
-      send(data, callback);
+      // send(data, callback);
+      httpRes.send(data);
 
       break;
     }
@@ -347,7 +351,8 @@ const nuguReq = function(httpReq, httpRes, next, users) {
         data
       );
       data = callbackResponseBasic("user_num", userNumber2, data);
-      send(data, callback);
+      // send(data, callback);
+      httpRes.send(data);
 
       break;
     }
@@ -370,7 +375,8 @@ const nuguReq = function(httpReq, httpRes, next, users) {
         data
       );
       data = callbackResponseBasic("user_num2", userNumber2, data);
-      send(data, callback);
+      // send(data, callback);
+      httpRes.send(data);
 
       break;
     }
