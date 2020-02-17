@@ -168,6 +168,8 @@ const nuguReq = function (httpReq, httpRes, next, users) {
   let randomNumber = user.number;
   let numberOfAttempts = user.numberOfAttempts;
 
+  let callback = httpRes.send;
+
   calculateResult.compare = function (speaker, user, size) {
     var strikeNum = 0;
     var ballNum = 0;
