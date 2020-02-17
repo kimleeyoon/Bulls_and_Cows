@@ -237,7 +237,7 @@ const nuguReq = function (httpReq, httpRes, next, users) {
       // }
       userNumber2 = parameters.user_number2.value;
       user.userNumber = userNumber2;
-      winGame = calculateResult.isWin(randomNumber, userNumber, 4);
+      winGame = calculateResult.isWin(randomNumber, userNumber2, 4);
       console.log(`WinGame : ${winGame}`);
       user.winGame = winGame;
       numberOfAttempts++;
