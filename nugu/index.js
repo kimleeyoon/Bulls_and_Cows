@@ -1,6 +1,8 @@
 const uuid = require("uuid").v4;
 const _ = require("lodash");
-const { DOMAIN } = require("../config");
+const {
+  DOMAIN
+} = require("../config");
 
 function throwDice(diceCount) {
   const results = [];
@@ -105,7 +107,7 @@ class NPKResponse {
   }
 }
 
-const nuguReq = function(httpReq, httpRes, next, users) {
+const nuguReq = function (httpReq, httpRes, next, users) {
   // npkResponse = new NPKResponse()
   // npkRequest = new NPKRequest(httpReq)
   // npkRequest.do(npkResponse)
@@ -140,12 +142,12 @@ const nuguReq = function(httpReq, httpRes, next, users) {
 
   var randomNum = {};
 
-  randomNum.random = function(n1, n2) {
+  randomNum.random = function (n1, n2) {
     //n1부터 n2까지의 난수
     return parseInt(Math.random() * (n2 - n1 + 1)) + n1;
   };
 
-  randomNum.authNo = function(n) {
+  randomNum.authNo = function (n) {
     //n자리 난수 생성
     var value = "";
     for (var i = 0; i < n; i++) {
@@ -169,7 +171,7 @@ const nuguReq = function(httpReq, httpRes, next, users) {
 
   let callback = httpRes.send;
 
-  calculateResult.compare = function(speaker, user, size) {
+  calculateResult.compare = function (speaker, user, size) {
     var strikeNum = 0;
     var ballNum = 0;
     var numEng = ["제로", "원", "투", "쓰리", "포"];
@@ -202,7 +204,7 @@ const nuguReq = function(httpReq, httpRes, next, users) {
     return resultSentence;
   };
 
-  calculateResult.isWin = function(speaker, user, size) {
+  calculateResult.isWin = function (speaker, user, size) {
     //이기면 1, 아니면 0 반환
     var strikeNum = 0;
 
@@ -315,7 +317,7 @@ const nuguReq = function(httpReq, httpRes, next, users) {
       // if (userNumber2 == null) {
       //   userNumber2 = userNumber;
       // }
-      userNumber2 = parameters.user_number2;
+      userNumber2 = parameters.user_number2.value;
       user.userNumber = userNumber2;
       numberOfAttempts++;
       let data = callbackResponseBasic(
