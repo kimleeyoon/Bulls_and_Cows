@@ -242,7 +242,8 @@ const nuguReq = function (httpReq, httpRes, next, users) {
         parameters.user_number.value,
         data
       );
-      send(data, callback);
+      // send(data, callback);
+        httpReq.send(data);
 
       break;
     }
