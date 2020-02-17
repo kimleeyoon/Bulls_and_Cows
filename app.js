@@ -8,7 +8,7 @@ const { SERVER_PORT } = require("./config.js");
 const routes = require("./routes");
 
 const app = express();
-
+let router = express.Router();
 app.use(bodyParser.json());
 app.use(morgan("common"));
 app.use((err, req, res, next) => next());
