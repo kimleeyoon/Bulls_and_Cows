@@ -141,7 +141,7 @@ const nuguReq = function (httpReq, httpRes, next, users) {
       users[id].number = randomNum.authNo(4);
       users[id].numberOfAttempts = 0;
       users[id].winGame = 0;
-      user = user[id];
+      user = users[id];
 
       //랜덤으로 4자리 숫자 생성
       userNumber = parameters.user_number.value;
