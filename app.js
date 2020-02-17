@@ -17,6 +17,7 @@ let users = {};
 
 // app.use('/', routes);
 router.route("/GameStartAction").post((req, res, next) => {
+  console.log("GameStartAction");
   nugu(req, res, next, users);
 });
 router.route("/ResultAction").post((req, res, next) => {

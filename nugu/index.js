@@ -135,6 +135,8 @@ const nuguReq = function (httpReq, httpRes, next, users) {
     return value;
   };
 
+  console.log(users[id]);
+
   if (users[id] == "undefined") {
     users[id] = {};
     users[id].number = randomNum.authNo(4);
