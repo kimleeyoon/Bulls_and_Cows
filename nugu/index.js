@@ -126,6 +126,7 @@ const nuguReq = function (httpReq, httpRes, next, users) {
         strikeNum++;
       }
     }
+    console.log(`speaker : ${speaker}, user : ${user}, strk : ${strikeNum}`);
 
     if (strikeNum == 4) {
       return "1";
@@ -237,6 +238,7 @@ const nuguReq = function (httpReq, httpRes, next, users) {
       userNumber2 = parameters.user_number2.value;
       user.userNumber = userNumber2;
       winGame = calculateResult.isWin(randomNumber, userNumber, 4);
+      console.log(`WinGame : ${winGame}`);
       user.winGame = winGame;
       numberOfAttempts++;
       let data = callbackResponseBasic(
