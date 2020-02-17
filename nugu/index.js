@@ -1,29 +1,27 @@
-const uuid = require('uuid').v4
-const _ = require('lodash')
-const {
-  DOMAIN
-} = require('../config')
+const uuid = require("uuid").v4;
+const _ = require("lodash");
+const { DOMAIN } = require("../config");
 
 function throwDice(diceCount) {
-  const results = []
-  let midText = ''
-  let resultText = ''
-  let sum = 0
-  console.log(`throw ${diceCount} times`)
+  const results = [];
+  let midText = "";
+  let resultText = "";
+  let sum = 0;
+  console.log(`throw ${diceCount} times`);
   for (let i = 0; i < diceCount; i++) {
-    const rand = Math.floor(Math.random() * 6) + 1
-    console.log(`${i + 1} time: ${rand}`)
-    results.push(rand)
-    sum += rand
-    midText += `${rand}, `
+    const rand = Math.floor(Math.random() * 6) + 1;
+    console.log(`${i + 1} time: ${rand}`);
+    results.push(rand);
+    sum += rand;
+    midText += `${rand}, `;
   }
 
-  midText = midText.replace(/, $/, '')
+  midText = midText.replace(/, $/, "");
   return {
     midText,
     sum,
     diceCount
-  }
+  };
 }
 
 const defaultForm = {
@@ -48,64 +46,66 @@ const defaultForm = {
 
 class NPKRequest {
   constructor(httpReq) {
-    this.context = httpReq.body.context
-    this.action = httpReq.body.action
-    console.log(`NPKRequest: ${JSON.stringify(this.context)}, ${JSON.stringify(this.action)}`)
+    this.context = httpReq.body.context;
+    this.action = httpReq.body.action;
+    console.log(
+      `NPKRequest: ${JSON.stringify(this.context)}, ${JSON.stringify(
+        this.action
+      )}`
+    );
   }
 
   do(npkResponse) {
-    this.actionRequest(npkResponse)
+    this.actionRequest(npkResponse);
   }
 
   actionRequest(npkResponse) {
-    console.log('actionRequest')
-    console.dir(this.action)
+    console.log("actionRequest");
+    console.dir(this.action);
 
-    const actionName = this.action.actionName
-    const parameters = this.action.parameters
+    const actionName = this.action.actionName;
+    const parameters = this.action.parameters;
 
     switch (actionName) {
-      case 'ThrowDiceAction' || 'ThrowYesAction':
-        let diceCount = 1
+      case "ThrowDiceAction" || "ThrowYesAction":
+        let diceCount = 1;
         if (!!parameters) {
-          const diceCountSlot = parameters.diceCount
+          const diceCountSlot = parameters.diceCount;
           if (parameters.length != 0 && diceCountSlot) {
-            diceCount = parseInt(diceCountSlot.value)
+            diceCount = parseInt(diceCountSlot.value);
           }
 
           if (isNaN(diceCount)) {
-            diceCount = 1
+            diceCount = 1;
           }
         }
-        const throwResult = throwDice(diceCount)
-        npkResponse.setOutputParameters(throwResult)
-        break
+        const throwResult = throwDice(diceCount);
+        npkResponse.setOutputParameters(throwResult);
+        break;
     }
   }
 }
 
 class NPKResponse {
   constructor() {
-    console.log('NPKResponse constructor')
+    console.log("NPKResponse constructor");
 
-    this.version = '2.0'
-    this.resultCode = 'OK'
-    this.output = {}
-    this.directives = []
+    this.version = "2.0";
+    this.resultCode = "OK";
+    this.output = {};
+    this.directives = [];
   }
 
   setOutputParameters(throwResult) {
-
     this.output = {
       diceCount: throwResult.diceCount,
       sum: throwResult.sum,
-      midText: throwResult.midText,
-    }
+      midText: throwResult.midText
+    };
   }
-
 }
 
-const nuguReq = function (httpReq, httpRes, next, users) {
+const nuguReq = function(httpReq, httpRes, next, users) {
   // npkResponse = new NPKResponse()
   // npkRequest = new NPKRequest(httpReq)
   // npkRequest.do(npkResponse)
@@ -124,7 +124,6 @@ const nuguReq = function (httpReq, httpRes, next, users) {
   const parameters = action.parameters;
   const id = context.session.id;
 
-
   // var action = requestBody.action;
   // var actionName = action.actionName;
   // var parameters = action.parameters;
@@ -141,12 +140,12 @@ const nuguReq = function (httpReq, httpRes, next, users) {
 
   var randomNum = {};
 
-  randomNum.random = function (n1, n2) {
+  randomNum.random = function(n1, n2) {
     //n1부터 n2까지의 난수
     return parseInt(Math.random() * (n2 - n1 + 1)) + n1;
   };
 
-  randomNum.authNo = function (n) {
+  randomNum.authNo = function(n) {
     //n자리 난수 생성
     var value = "";
     for (var i = 0; i < n; i++) {
@@ -155,7 +154,7 @@ const nuguReq = function (httpReq, httpRes, next, users) {
     return value;
   };
 
-  console.log(users[id])
+  console.log(users[id]);
 
   if (typeof users[id] == "undefined") {
     users[id] = {};
@@ -170,7 +169,7 @@ const nuguReq = function (httpReq, httpRes, next, users) {
 
   let callback = httpRes.send;
 
-  calculateResult.compare = function (speaker, user, size) {
+  calculateResult.compare = function(speaker, user, size) {
     var strikeNum = 0;
     var ballNum = 0;
     var numEng = ["제로", "원", "투", "쓰리", "포"];
@@ -203,7 +202,7 @@ const nuguReq = function (httpReq, httpRes, next, users) {
     return resultSentence;
   };
 
-  calculateResult.isWin = function (speaker, user, size) {
+  calculateResult.isWin = function(speaker, user, size) {
     //이기면 1, 아니면 0 반환
     var strikeNum = 0;
 
@@ -243,7 +242,7 @@ const nuguReq = function (httpReq, httpRes, next, users) {
         data
       );
       // send(data, callback);
-        httpReq.send(data);
+      // httpRes.send(data);
 
       break;
     }
@@ -398,6 +397,5 @@ function callbackResponseBasic(parName, element, data = defaultForm) {
     }
   };
 }
-
 
 module.exports = nuguReq;
