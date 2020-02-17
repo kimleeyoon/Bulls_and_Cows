@@ -141,7 +141,9 @@ const nuguReq = function (httpReq, httpRes, next, users) {
       user.userNumber = userNumber;
       winGame = calculateResult.isWin(randomNumber, userNumber, 4);
       user.winGame = winGame;
+      numberOfAttempts = user.numberOfAttempts;
       numberOfAttempts++;
+      user.numberOfAttempts = numberOfAttempts;
       let data = callbackResponseBasic(
         "result_sentence",
         calculateResult.compare(randomNumber, userNumber, 4)
@@ -188,6 +190,7 @@ const nuguReq = function (httpReq, httpRes, next, users) {
 
     case "WinGameAction": {
       winGame = user.winGame;
+      numberOfAttempts = user.numberOfAttempts;
       let data = callbackResponseBasic("result_sentence", "포 스트라이크에요.");
       data = callbackResponseBasic("win_game", winGame, data);
       data = callbackResponseBasic("speaker_random_num", randomNumber, data);
@@ -205,7 +208,9 @@ const nuguReq = function (httpReq, httpRes, next, users) {
 
     case "ResultAction2": {
       //사용자가 말한 숫자 확인, 결과 출력, 이겼는지 아닌지 여부는 여기서 결정해서 변수값 바꿔줘야 함!
+      numberOfAttempts = user.numberOfAttempts;
       numberOfAttempts++;
+      user.numberOfAttempts = numberOfAttempts;
       // if (userNumber2 == null) {
       //   userNumber2 = userNumber;
       // }
@@ -240,7 +245,10 @@ const nuguReq = function (httpReq, httpRes, next, users) {
       winGame = calculateResult.isWin(randomNumber, userNumber2, 4);
       console.log(`WinGame : ${winGame}`);
       user.winGame = winGame;
+      numberOfAttempts = user.numberOfAttempts;
       numberOfAttempts++;
+      user.numberOfAttempts = numberOfAttempts;
+
       let data = callbackResponseBasic(
         "result_sentence2",
         calculateResult.compare(randomNumber, userNumber2, 4)
