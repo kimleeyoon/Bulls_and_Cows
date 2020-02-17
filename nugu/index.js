@@ -26,6 +26,26 @@ function throwDice(diceCount) {
   }
 }
 
+const defaultForm = {
+  version: "2.0",
+  resultCode: "OK",
+  output: {
+    result_sentence: null,
+    win_game: null,
+    speaker_random_num: null,
+    try_num: null,
+    game_point: null,
+    user_num: null,
+    result_sentence2: null,
+    win_game2: null,
+    speaker_random_num2: null,
+    try_num2: null,
+    game_point2: null,
+    user_num2: null
+  },
+  directives: []
+};
+
 class NPKRequest {
   constructor(httpReq) {
     this.context = httpReq.body.context
