@@ -4,7 +4,9 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const nugu = require("./nugu");
 
-const { SERVER_PORT } = require("./config.js");
+const {
+  SERVER_PORT
+} = require("./config.js");
 const routes = require("./routes");
 
 const app = express();
@@ -21,21 +23,27 @@ router.route("/GameStartAction").post((req, res, next) => {
   nugu(req, res, next, users);
 });
 router.route("/ResultAction").post((req, res, next) => {
+  console.log("ResultAction");
   nugu(req, res, next, users);
 });
 router.route("/WinGameAction").post((req, res, next) => {
+  console.log("WinGameAction");
   nugu(req, res, next, users);
 });
 router.route("/ResultAction2").post((req, res, next) => {
+  console.log("ResultAction2");
   nugu(req, res, next, users);
 });
 router.route("/addAction").post((req, res, next) => {
+  console.log("addAction");
   nugu(req, res, next, users);
 });
 router.route("/CheckAction").post((req, res, next) => {
+  console.log("CheckAction");
   nugu(req, res, next, users);
 });
 router.route("/WinGameAction2").post((req, res, next) => {
+  console.log("WinGameAction2");
   nugu(req, res, next, users);
 });
 
