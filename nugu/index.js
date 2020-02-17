@@ -195,7 +195,7 @@ const nuguReq = function (httpReq, httpRes, next, users) {
       return "1";
     } else return "0";
   };
-  console.log(requestBody);
+  // console.log(requestBody);
 
   switch (actionName) {
     case "GameStartAction": {
