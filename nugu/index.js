@@ -4,28 +4,6 @@ const {
   DOMAIN
 } = require("../config");
 
-function throwDice(diceCount) {
-  const results = [];
-  let midText = "";
-  let resultText = "";
-  let sum = 0;
-  console.log(`throw ${diceCount} times`);
-  for (let i = 0; i < diceCount; i++) {
-    const rand = Math.floor(Math.random() * 6) + 1;
-    console.log(`${i + 1} time: ${rand}`);
-    results.push(rand);
-    sum += rand;
-    midText += `${rand}, `;
-  }
-
-  midText = midText.replace(/, $/, "");
-  return {
-    midText,
-    sum,
-    diceCount
-  };
-}
-
 const defaultForm = {
   version: "2.0",
   resultCode: "OK",
@@ -46,79 +24,7 @@ const defaultForm = {
   directives: []
 };
 
-class NPKRequest {
-  constructor(httpReq) {
-    this.context = httpReq.body.context;
-    this.action = httpReq.body.action;
-    console.log(
-      `NPKRequest: ${JSON.stringify(this.context)}, ${JSON.stringify(
-        this.action
-      )}`
-    );
-  }
-
-  do(npkResponse) {
-    this.actionRequest(npkResponse);
-  }
-
-  actionRequest(npkResponse) {
-    console.log("actionRequest");
-    console.dir(this.action);
-
-    const actionName = this.action.actionName;
-    const parameters = this.action.parameters;
-
-    switch (actionName) {
-      case "ThrowDiceAction" || "ThrowYesAction":
-        let diceCount = 1;
-        if (!!parameters) {
-          const diceCountSlot = parameters.diceCount;
-          if (parameters.length != 0 && diceCountSlot) {
-            diceCount = parseInt(diceCountSlot.value);
-          }
-
-          if (isNaN(diceCount)) {
-            diceCount = 1;
-          }
-        }
-        const throwResult = throwDice(diceCount);
-        npkResponse.setOutputParameters(throwResult);
-        break;
-    }
-  }
-}
-
-class NPKResponse {
-  constructor() {
-    console.log("NPKResponse constructor");
-
-    this.version = "2.0";
-    this.resultCode = "OK";
-    this.output = {};
-    this.directives = [];
-  }
-
-  setOutputParameters(throwResult) {
-    this.output = {
-      diceCount: throwResult.diceCount,
-      sum: throwResult.sum,
-      midText: throwResult.midText
-    };
-  }
-}
-
 const nuguReq = function (httpReq, httpRes, next, users) {
-  // npkResponse = new NPKResponse()
-  // npkRequest = new NPKRequest(httpReq)
-  // npkRequest.do(npkResponse)
-  // console.log(`NPKResponse: ${JSON.stringify(npkResponse)}`)
-  // return httpRes.send(npkResponse)
-
-  // try {
-  //   var requestBody = JSON.parse(event.body);
-  // } catch (e) {
-  //   var requestBody = event;
-  // }
   const context = httpReq.body.context;
   const action = httpReq.body.action;
 
@@ -151,7 +57,13 @@ const nuguReq = function (httpReq, httpRes, next, users) {
     //n자리 난수 생성
     var value = "";
     for (var i = 0; i < n; i++) {
-      value += randomNum.random(0, 9);
+      let temp = randomNum.random(0, 9);
+      if (value.indexOf(`${temp}`) != -1) {
+        i--;
+        continue;
+      }
+      value += temp;
+
     }
     return value;
   };
@@ -162,6 +74,7 @@ const nuguReq = function (httpReq, httpRes, next, users) {
     users[id] = {};
     users[id].number = randomNum.authNo(4);
     users[id].numberOfAttempts = 0;
+    users[id].winGame = 0;
   }
 
   // var randomNumber = randomNum.authNo(4); //네 자리 난수 생성
@@ -226,6 +139,7 @@ const nuguReq = function (httpReq, httpRes, next, users) {
       userNumber = parameters.user_number.value;
       user.userNumber = userNumber;
       winGame = calculateResult.isWin(randomNumber, userNumber, 4);
+      user.winGame = winGame;
       numberOfAttempts++;
       let data = callbackResponseBasic(
         "result_sentence",
@@ -255,6 +169,7 @@ const nuguReq = function (httpReq, httpRes, next, users) {
         "result_sentence",
         calculateResult.compare(randomNumber, userNumber, 4)
       );
+      winGame = user.winGame;
       data = callbackResponseBasic("win_game", winGame, data);
       data = callbackResponseBasic("speaker_random_num", randomNumber, data);
       data = callbackResponseBasic("try_num", numberOfAttempts, data);
@@ -271,6 +186,7 @@ const nuguReq = function (httpReq, httpRes, next, users) {
     }
 
     case "WinGameAction": {
+      winGame = user.winGame;
       let data = callbackResponseBasic("result_sentence", "포 스트라이크에요.");
       data = callbackResponseBasic("win_game", winGame, data);
       data = callbackResponseBasic("speaker_random_num", randomNumber, data);
@@ -297,6 +213,7 @@ const nuguReq = function (httpReq, httpRes, next, users) {
         "result_sentence2",
         calculateResult.compare(randomNumber, userNumber2, 4)
       );
+      winGame = user.winGame;
       data = callbackResponseBasic("win_game2", winGame, data);
       data = callbackResponseBasic("speaker_random_num2", randomNumber, data);
       data = callbackResponseBasic("try_num2", numberOfAttempts, data);
@@ -319,6 +236,8 @@ const nuguReq = function (httpReq, httpRes, next, users) {
       // }
       userNumber2 = parameters.user_number2.value;
       user.userNumber = userNumber2;
+      winGame = calculateResult.isWin(randomNumber, userNumber, 4);
+      user.winGame = winGame;
       numberOfAttempts++;
       let data = callbackResponseBasic(
         "result_sentence2",
@@ -349,6 +268,7 @@ const nuguReq = function (httpReq, httpRes, next, users) {
         "result_sentence2",
         calculateResult.compare(randomNumber, userNumber2, 4)
       );
+      winGame = user.winGame;
       data = callbackResponseBasic("win_game2", winGame, data);
       data = callbackResponseBasic("speaker_random_num2", randomNumber, data);
       data = callbackResponseBasic("try_num", numberOfAttempts, data);
@@ -369,6 +289,7 @@ const nuguReq = function (httpReq, httpRes, next, users) {
       // if (userNumber2 == null) {
       //   userNumber2 = userNumber;
       // }
+      winGame = user.winGame;
       userNumber2 = user.userNumber;
       let data = callbackResponseBasic(
         "result_sentence2",
