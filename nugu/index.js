@@ -242,7 +242,7 @@ const nuguReq = function(httpReq, httpRes, next, users) {
         data
       );
       // send(data, callback);
-      // httpRes.send(data);
+      httpRes.send(data);
 
       break;
     }
@@ -375,7 +375,7 @@ const nuguReq = function(httpReq, httpRes, next, users) {
       break;
     }
   }
-  return send(data, httpRes.send);
+  // return send(data, httpRes.send);
 };
 
 function send(data, callback) {
