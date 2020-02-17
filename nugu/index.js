@@ -135,9 +135,9 @@ const nuguReq = function (httpReq, httpRes, next, users) {
     return value;
   };
 
-  console.log(users[id]);
+  console.log(users[id])
 
-  if (users[id] == "undefined") {
+  if (typeof users[id] == "undefined") {
     users[id] = {};
     users[id].number = randomNum.authNo(4);
     users[id].numberOfAttempts = 0;
