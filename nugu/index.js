@@ -136,6 +136,13 @@ const nuguReq = function (httpReq, httpRes, next, users) {
 
   switch (actionName) {
     case "GameStartAction": {
+
+      users[id] = {};
+      users[id].number = randomNum.authNo(4);
+      users[id].numberOfAttempts = 0;
+      users[id].winGame = 0;
+      user = user[id];
+
       //랜덤으로 4자리 숫자 생성
       userNumber = parameters.user_number.value;
       user.userNumber = userNumber;
