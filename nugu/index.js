@@ -293,7 +293,7 @@ const nuguReq = function(httpReq, httpRes, next, users) {
       userNumber2 = user.userNumber;
       let data = callbackResponseBasic(
         "result_sentence2",
-        calculateResult.compare(randomNumber, userNumber, 4)
+        calculateResult.compare(randomNumber, userNumber2, 4)
       );
       data = callbackResponseBasic("win_game2", winGame, data);
       data = callbackResponseBasic("speaker_random_num2", randomNumber, data);
