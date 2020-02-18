@@ -55,6 +55,11 @@ router.post("/WinGameAction2", (ctx, next) => {
   nugu(ctx, users);
 });
 
+router.get("/health", (ctx, next) => {
+  ctx.body = "OK";
+  ctx.status = 200;
+});
+
 // app.use("/", router);
 app.use(router.routes()).use(router.allowedMethods());
 
