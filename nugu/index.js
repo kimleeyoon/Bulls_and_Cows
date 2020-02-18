@@ -111,12 +111,12 @@ const nuguReq = function(ctx, users) {
     if (strikeNum == 0 && ballNum == 0) {
       resultSentence = "일치하는 숫자가 없네요.";
     } else if (strikeNum == 0 && ballNum != 0) {
-      resultSentence = numEng[ballNum] + "볼 이에요.";
+      resultSentence = numEng[ballNum] + "볼 입니다.";
     } else if (strikeNum != 0 && ballNum == 0) {
       resultSentence = numEng[strikeNum] + "스트라이크에요.";
     } else {
       resultSentence =
-        numEng[strikeNum] + "스트라이크, " + numEng[ballNum] + "볼 이에요.";
+        numEng[strikeNum] + "스트라이크, " + numEng[ballNum] + "볼 입니다.";
     }
 
     return resultSentence;
