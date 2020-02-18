@@ -82,7 +82,7 @@ const nuguReq = function (ctx, users) {
   let randomNumber = user.number;
   let numberOfAttempts = user.numberOfAttempts;
 
-  let callback = httpRes.send;
+  // let callback = httpRes.send;
 
   calculateResult.compare = function (speaker, user, size) {
     var strikeNum = 0;
@@ -169,7 +169,7 @@ const nuguReq = function (ctx, users) {
         data
       );
       // send(data, callback);
-      // httpRes.send(data);
+      // nugctx.body = data;;
       ctx.body = data;
 
       break;
@@ -191,7 +191,7 @@ const nuguReq = function (ctx, users) {
       );
       data = callbackResponseBasic("user_num", userNumber, data);
       // send(data, callback);
-      httpRes.send(data);
+      nugctx.body = data;;
 
       break;
     }
@@ -210,7 +210,7 @@ const nuguReq = function (ctx, users) {
       );
       data = callbackResponseBasic("user_num", userNumber, data);
       // send(data, callback);
-      httpRes.send(data);
+      nugctx.body = data;;
       break;
     }
 
@@ -238,7 +238,7 @@ const nuguReq = function (ctx, users) {
       );
       data = callbackResponseBasic("user_num2", userNumber2, data);
       // send(data, callback);
-      httpRes.send(data);
+      nugctx.body = data;;
 
       break;
     }
@@ -271,7 +271,7 @@ const nuguReq = function (ctx, users) {
       );
       data = callbackResponseBasic("user_num2", userNumber2, data);
       // send(data, callback);
-      httpRes.send(data);
+      nugctx.body = data;;
 
       break;
     }
@@ -297,7 +297,7 @@ const nuguReq = function (ctx, users) {
       );
       data = callbackResponseBasic("user_num", userNumber2, data);
       // send(data, callback);
-      httpRes.send(data);
+      nugctx.body = data;;
 
       break;
     }
@@ -323,7 +323,7 @@ const nuguReq = function (ctx, users) {
       );
       data = callbackResponseBasic("user_num2", userNumber2, data);
       // send(data, callback);
-      httpRes.send(data);
+      nugctx.body = data;;
 
       break;
     }
