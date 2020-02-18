@@ -24,9 +24,9 @@ const defaultForm = {
   directives: []
 };
 
-const nuguReq = function (httpReq, httpRes, next, users) {
-  const context = httpReq.body.context;
-  const action = httpReq.body.action;
+const nuguReq = function (ctx, users) {
+  const context = ctx.request.body.context;
+  const action = ctx.request.body.action;
 
   const actionName = action.actionName;
   const parameters = action.parameters;
@@ -169,7 +169,8 @@ const nuguReq = function (httpReq, httpRes, next, users) {
         data
       );
       // send(data, callback);
-      httpRes.send(data);
+      // httpRes.send(data);
+      ctx.body = data;
 
       break;
     }
