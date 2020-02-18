@@ -68,6 +68,10 @@ const nuguReq = function(ctx, users) {
         i--;
         continue;
       }
+      if (i == 0 && temp == "0") {
+        i--;
+        continue;
+      }
       value += temp;
     }
     return value;
