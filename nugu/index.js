@@ -14,12 +14,20 @@ const defaultForm = {
     try_num: null,
     game_point: null,
     user_num: null,
+    user_num11: null,
+    user_num12: null,
+    user_num13: null,
+    user_num14: null,
     result_sentence2: null,
     win_game2: null,
     speaker_random_num2: null,
     try_num2: null,
     game_point2: null,
-    user_num2: null
+    user_num2: null,
+    user_num21: null,
+    user_num22: null,
+    user_num23: null,
+    user_num24: null,
   },
   directives: []
 };
@@ -165,11 +173,15 @@ const nuguReq = function (ctx, users) {
       );
       data = callbackResponseBasic(
         "user_num",
-        parameters.user_number.value,
+        userNumber,
         data
       );
-      // send(data, callback);
-      // ctx.body = data;
+      data = callbackResponseBasic("user_num11", userNumber[0], data);
+      data = callbackResponseBasic("user_num12", userNumber[1], data);
+      data = callbackResponseBasic("user_num13", userNumber[2], data);
+      data = callbackResponseBasic("user_num14", userNumber[3], data);
+      // send(data, callback)
+      // ctx.body = data
       ctx.body = data;
 
       break;
@@ -238,6 +250,10 @@ const nuguReq = function (ctx, users) {
       );
       data = callbackResponseBasic("user_num2", userNumber2, data);
       // send(data, callback);
+      data = callbackResponseBasic("user_num12", userNumber2[0], data);
+      data = callbackResponseBasic("user_num12", userNumber2[1], data);
+      data = callbackResponseBasic("user_num12", userNumber2[2], data);
+      data = callbackResponseBasic("user_num12", userNumber2[3], data);
       ctx.body = data;
 
       break;
