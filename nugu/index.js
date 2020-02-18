@@ -1,8 +1,6 @@
 const uuid = require("uuid").v4;
 const _ = require("lodash");
-const {
-  DOMAIN
-} = require("../config");
+const { DOMAIN } = require("../config");
 
 const defaultForm = {
   version: "2.0",
@@ -27,12 +25,12 @@ const defaultForm = {
     user_num21: null,
     user_num22: null,
     user_num23: null,
-    user_num24: null,
+    user_num24: null
   },
   directives: []
 };
 
-const nuguReq = function (ctx, users) {
+const nuguReq = function(ctx, users) {
   const context = ctx.request.body.context;
   const action = ctx.request.body.action;
 
@@ -56,12 +54,12 @@ const nuguReq = function (ctx, users) {
 
   var randomNum = {};
 
-  randomNum.random = function (n1, n2) {
+  randomNum.random = function(n1, n2) {
     //n1부터 n2까지의 난수
     return parseInt(Math.random() * (n2 - n1 + 1)) + n1;
   };
 
-  randomNum.authNo = function (n) {
+  randomNum.authNo = function(n) {
     //n자리 난수 생성
     var value = "";
     for (var i = 0; i < n; i++) {
@@ -71,7 +69,6 @@ const nuguReq = function (ctx, users) {
         continue;
       }
       value += temp;
-
     }
     return value;
   };
@@ -92,7 +89,7 @@ const nuguReq = function (ctx, users) {
 
   // let callback = httpRes.send;
 
-  calculateResult.compare = function (speaker, user, size) {
+  calculateResult.compare = function(speaker, user, size) {
     var strikeNum = 0;
     var ballNum = 0;
     var numEng = ["제로", "원", "투", "쓰리", "포"];
@@ -125,7 +122,7 @@ const nuguReq = function (ctx, users) {
     return resultSentence;
   };
 
-  calculateResult.isWin = function (speaker, user, size) {
+  calculateResult.isWin = function(speaker, user, size) {
     //이기면 1, 아니면 0 반환
     var strikeNum = 0;
 
@@ -144,7 +141,6 @@ const nuguReq = function (ctx, users) {
 
   switch (actionName) {
     case "GameStartAction": {
-
       users[id] = {};
       users[id].number = randomNum.authNo(4);
       users[id].numberOfAttempts = 0;
@@ -171,11 +167,7 @@ const nuguReq = function (ctx, users) {
         gamePoint[numberOfAttempts],
         data
       );
-      data = callbackResponseBasic(
-        "user_num",
-        userNumber,
-        data
-      );
+      data = callbackResponseBasic("user_num", userNumber, data);
       data = callbackResponseBasic("user_num11", userNumber[0], data);
       data = callbackResponseBasic("user_num12", userNumber[1], data);
       data = callbackResponseBasic("user_num13", userNumber[2], data);
@@ -250,10 +242,10 @@ const nuguReq = function (ctx, users) {
       );
       data = callbackResponseBasic("user_num2", userNumber2, data);
       // send(data, callback);
-      data = callbackResponseBasic("user_num12", userNumber2[0], data);
-      data = callbackResponseBasic("user_num12", userNumber2[1], data);
-      data = callbackResponseBasic("user_num12", userNumber2[2], data);
-      data = callbackResponseBasic("user_num12", userNumber2[3], data);
+      data = callbackResponseBasic("user_num21", userNumber2[0], data);
+      data = callbackResponseBasic("user_num22", userNumber2[1], data);
+      data = callbackResponseBasic("user_num23", userNumber2[2], data);
+      data = callbackResponseBasic("user_num24", userNumber2[3], data);
       ctx.body = data;
 
       break;
