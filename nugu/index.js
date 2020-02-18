@@ -169,7 +169,7 @@ const nuguReq = function (ctx, users) {
         data
       );
       // send(data, callback);
-      // nugctx.body = data;;
+      // ctx.body = data;
       ctx.body = data;
 
       break;
@@ -191,7 +191,7 @@ const nuguReq = function (ctx, users) {
       );
       data = callbackResponseBasic("user_num", userNumber, data);
       // send(data, callback);
-      nugctx.body = data;;
+      ctx.body = data;
 
       break;
     }
@@ -210,7 +210,7 @@ const nuguReq = function (ctx, users) {
       );
       data = callbackResponseBasic("user_num", userNumber, data);
       // send(data, callback);
-      nugctx.body = data;;
+      ctx.body = data;
       break;
     }
 
@@ -238,7 +238,7 @@ const nuguReq = function (ctx, users) {
       );
       data = callbackResponseBasic("user_num2", userNumber2, data);
       // send(data, callback);
-      nugctx.body = data;;
+      ctx.body = data;
 
       break;
     }
@@ -271,7 +271,7 @@ const nuguReq = function (ctx, users) {
       );
       data = callbackResponseBasic("user_num2", userNumber2, data);
       // send(data, callback);
-      nugctx.body = data;;
+      ctx.body = data;
 
       break;
     }
@@ -297,7 +297,7 @@ const nuguReq = function (ctx, users) {
       );
       data = callbackResponseBasic("user_num", userNumber2, data);
       // send(data, callback);
-      nugctx.body = data;;
+      ctx.body = data;
 
       break;
     }
@@ -323,7 +323,7 @@ const nuguReq = function (ctx, users) {
       );
       data = callbackResponseBasic("user_num2", userNumber2, data);
       // send(data, callback);
-      nugctx.body = data;;
+      ctx.body = data;
 
       break;
     }
