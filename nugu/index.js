@@ -155,7 +155,7 @@ const nuguReq = function (ctx, users) {
 
       //랜덤으로 4자리 숫자 생성
       userNumber = parameters.user_number.value;
-      while (userNumber.length() < 4) {
+      while (userNumber.length < 4) {
         userNumber += "0";
       }
       user.userNumber = userNumber;
@@ -266,7 +266,7 @@ const nuguReq = function (ctx, users) {
       //   userNumber2 = userNumber;
       // }
       userNumber2 = parameters.user_number2.value;
-      while (userNumber2.length() < 4) {
+      while (userNumber2.length < 4) {
         userNumber2 += "0";
       }
       user.userNumber = userNumber2;

@@ -26,7 +26,7 @@ app.use(bodyParser());
 // });
 router.post("/GameStartAction", (ctx, next) => {
   console.log("GameStartAction");
-  console.log(ctx.request.body);
+  console.log(JSON.stringify(ctx.request.body));
 
   nugu(ctx, users);
 });
