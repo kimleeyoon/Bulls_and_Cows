@@ -1,6 +1,8 @@
 const uuid = require("uuid").v4;
 const _ = require("lodash");
-const { DOMAIN } = require("../config");
+const {
+  DOMAIN
+} = require("../config");
 
 const defaultForm = {
   version: "2.0",
@@ -30,7 +32,7 @@ const defaultForm = {
   directives: []
 };
 
-const nuguReq = function(ctx, users) {
+const nuguReq = function (ctx, users) {
   const context = ctx.request.body.context;
   const action = ctx.request.body.action;
 
@@ -54,12 +56,12 @@ const nuguReq = function(ctx, users) {
 
   var randomNum = {};
 
-  randomNum.random = function(n1, n2) {
+  randomNum.random = function (n1, n2) {
     //n1부터 n2까지의 난수
     return parseInt(Math.random() * (n2 - n1 + 1)) + n1;
   };
 
-  randomNum.authNo = function(n) {
+  randomNum.authNo = function (n) {
     //n자리 난수 생성
     var value = "";
     for (var i = 0; i < n; i++) {
@@ -93,7 +95,7 @@ const nuguReq = function(ctx, users) {
 
   // let callback = httpRes.send;
 
-  calculateResult.compare = function(speaker, user, size) {
+  calculateResult.compare = function (speaker, user, size) {
     var strikeNum = 0;
     var ballNum = 0;
     var numEng = ["제로", "원", "투", "쓰리", "포"];
@@ -126,7 +128,7 @@ const nuguReq = function(ctx, users) {
     return resultSentence;
   };
 
-  calculateResult.isWin = function(speaker, user, size) {
+  calculateResult.isWin = function (speaker, user, size) {
     //이기면 1, 아니면 0 반환
     var strikeNum = 0;
 
@@ -153,6 +155,9 @@ const nuguReq = function(ctx, users) {
 
       //랜덤으로 4자리 숫자 생성
       userNumber = parameters.user_number.value;
+      while (userNumber.length() < 4) {
+        userNumber += "0";
+      }
       user.userNumber = userNumber;
       winGame = calculateResult.isWin(randomNumber, userNumber, 4);
       user.winGame = winGame;
@@ -261,6 +266,9 @@ const nuguReq = function(ctx, users) {
       //   userNumber2 = userNumber;
       // }
       userNumber2 = parameters.user_number2.value;
+      while (userNumber2.length() < 4) {
+        userNumber2 += "0";
+      }
       user.userNumber = userNumber2;
       winGame = calculateResult.isWin(randomNumber, userNumber2, 4);
       console.log(`WinGame : ${winGame}`);
