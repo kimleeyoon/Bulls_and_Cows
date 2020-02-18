@@ -24,7 +24,7 @@ let users = {};
 // });
 router.post("/GameStartAction", (ctx, next) => {
   console.log("GameStartAction");
-  console.log(ctx.params);
+  console.log(ctx.request.body);
 
   nugu(ctx, users);
 });
