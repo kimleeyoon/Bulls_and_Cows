@@ -12,9 +12,9 @@ const Router = require("koa-router");
 const app = new Koa();
 // let router = express.Router();
 let router = new Router();
-app.use(bodyParser.json());
-app.use(morgan("common"));
-app.use((err, req, res, next) => next());
+// app.use(bodyParser.json());
+// app.use(morgan("common"));
+// app.use((err, req, res, next) => next());
 
 let users = {};
 
