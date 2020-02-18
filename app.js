@@ -1,6 +1,6 @@
 // const express = require("express");
 const Koa = require("koa");
-const bodyParser = require("body-parser");
+const bodyParser = require("koa-bodyparser");
 const morgan = require("morgan");
 const nugu = require("./nugu");
 
@@ -17,6 +17,8 @@ let router = new Router();
 // app.use((err, req, res, next) => next());
 
 let users = {};
+
+app.use(bodyParser());
 
 // router.route("/GameStartAction").post((req, res, next) => {
 //   console.log("GameStartAction");
